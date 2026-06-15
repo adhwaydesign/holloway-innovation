@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Your Website — A.D.H.D | A D Hway Design</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#C8F500;--charcoal:#1A1A1A;--coral:#FF6B6B;--offwhite:#F7F6F0;--white:#FFFFFF;--textgray:#6B6B65;--mid:#2E2E2E}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white);min-height:100vh;overflow-x:hidden}
+.header{padding:24px 5vw;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06)}
+.logo-wrap{display:flex;flex-direction:column;line-height:1}
+.logo-top{font-size:20px;font-weight:900;color:var(--green);letter-spacing:0.04em}
+.logo-bot{font-size:10px;font-weight:300;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:3px}
+.back-link{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.back-link:hover{color:var(--green)}
+.hero{padding:60px 5vw 40px;max-width:760px;margin:0 auto;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(200,245,0,0.1);border:1px solid rgba(200,245,0,0.2);color:var(--green);font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:7px 16px;border-radius:100px;margin-bottom:24px}
+.eyebrow span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:900;line-height:1;letter-spacing:-0.03em;margin-bottom:16px}
+.hero h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--green)}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.7;max-width:520px;margin:0 auto 40px}
+.progress-wrap{max-width:680px;margin:0 auto 48px;padding:0 5vw}
+.progress-steps{display:flex;gap:4px;align-items:center;margin-bottom:10px}
+.progress-step{flex:1;height:3px;border-radius:100px;background:rgba(255,255,255,0.1);transition:background 0.4s}
+.progress-step.done{background:var(--green)}
+.progress-step.active{background:rgba(200,245,0,0.5)}
+.progress-label{font-size:12px;color:rgba(255,255,255,0.4);text-align:center}
+.progress-label span{color:var(--green);font-weight:500}
+.form-wrap{max-width:680px;margin:0 auto;padding:0 5vw 80px}
+.section{display:none;animation:fadeIn 0.4s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:rgba(200,245,0,0.1);color:var(--green);border:1px solid rgba(200,245,0,0.2);margin-bottom:12px}
+.section-title{font-size:24px;font-weight:700;color:var(--white);margin-bottom:6px;letter-spacing:-0.02em}
+.section-sub{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.6}
+.field-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.field-group label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+.field-group input,.field-group textarea,.field-group select{font-family:'DM Sans',sans-serif;font-size:15px;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:var(--white);outline:none;transition:all 0.2s;width:100%}
+.field-group input::placeholder,.field-group textarea::placeholder{color:rgba(255,255,255,0.2)}
+.field-group input:focus,.field-group textarea:focus{border-color:var(--green);background:rgba(200,245,0,0.04)}
+.field-group textarea{resize:vertical;min-height:90px}
+.field-note{font-size:12px;color:rgba(255,255,255,0.4);font-style:italic;margin-top:4px}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.choice-grid.three{grid-template-columns:1fr 1fr 1fr}
+.choice-grid.single{grid-template-columns:1fr}
+.choice-card{position:relative;cursor:pointer}
+.choice-card input{position:absolute;opacity:0}
+.choice-label{display:flex;flex-direction:column;gap:10px;padding:20px;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.08);border-radius:18px;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;cursor:pointer}
+.choice-label::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(200,245,0,0.2),transparent);transition:left 0.5s;pointer-events:none}
+.choice-card input:checked + .choice-label{background:rgba(200,245,0,0.15);border-color:var(--green);box-shadow:0 0 30px rgba(200,245,0,0.2),inset 0 0 30px rgba(200,245,0,0.08);transform:translateY(-4px) scale(1.02)}
+.choice-card input:checked + .choice-label::before{left:100%}
+.choice-label:hover{background:rgba(255,255,255,0.08);border-color:rgba(200,245,0,0.4);transform:translateY(-2px)}
+.choice-icon{font-size:28px;line-height:1}
+.choice-title{font-size:15px;font-weight:700;color:var(--white);letter-spacing:-0.01em}
+.choice-desc{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5}
+.choice-price{font-size:13px;font-weight:600;color:var(--green);margin-top:4px}
+.check-mark{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--charcoal);background:transparent;transition:all 0.3s;opacity:0}
+.choice-card input:checked ~ .check-mark{background:var(--green);border-color:var(--green);opacity:1;transform:scale(1.1)}
+.btn-row{display:flex;gap:12px;margin-top:36px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--green),#d4ff00);color:var(--charcoal);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;padding:18px 32px;border-radius:100px;border:none;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 30px rgba(200,245,0,0.3)}
+.btn-next:hover{transform:translateY(-4px);box-shadow:0 15px 40px rgba(200,245,0,0.4)}
+.btn-next:active{transform:translateY(-1px)}
+.btn-back{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:100px;border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:all 0.2s}
+.btn-back:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2)}
+.btn-submit{flex:1;background:linear-gradient(135deg,var(--green),#d4ff00);color:var(--charcoal);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;padding:18px 32px;border-radius:100px;border:none;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 10px 30px rgba(200,245,0,0.3)}
+.btn-submit:hover{transform:translateY(-4px);box-shadow:0 15px 40px rgba(200,245,0,0.4)}
+.btn-submit:active{transform:translateY(-1px)}
+.success{display:none;text-align:center;padding:60px 20px;animation:fadeIn 0.5s ease}
+.success.show{display:block}
+.success-icon{font-size:64px;margin-bottom:20px}
+.success h2{font-size:32px;font-weight:900;color:var(--white);margin-bottom:12px;letter-spacing:-0.02em}
+.success h2 em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green)}
+.success p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;margin:0 auto 32px}
+.success-box{background:rgba(200,245,0,0.08);border:1px solid rgba(200,245,0,0.2);border-radius:16px;padding:20px 24px;max-width:440px;margin:0 auto}
+.success-box p{font-size:13px;color:rgba(255,255,255,0.6);margin:0;line-height:1.8}
+.success-box strong{color:var(--green)}
+.checkbox-group{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
+.checkbox-group input{width:18px;height:18px;margin-top:2px;accent-color:var(--green);flex-shrink:0}
+.checkbox-group label{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;cursor:pointer}
+.info-box{background:rgba(200,245,0,0.08);border-left:4px solid var(--green);border-radius:8px;padding:16px;margin:16px 0;font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6}
+@media(max-width:600px){.choice-grid{grid-template-columns:1fr}.choice-grid.three{grid-template-columns:1fr 1fr}.btn-row{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-wrap">
+    <span class="logo-top">A.D.H.D</span>
+    <span class="logo-bot">A D Hway Design</span>
+  </div>
+  <a href="https://adhwaydesign.com" class="back-link">← Back to site</a>
+</div>
+
+<div class="hero">
+  <div class="eyebrow"><span></span>Website Intake Form</div>
+  <h1>Let's build your <em>website</em></h1>
+  <p class="hero-sub">Just a few quick questions so I can create something perfect for your business. This takes about 5 minutes.</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="progress-step active" id="ps1"></div>
+    <div class="progress-step" id="ps2"></div>
+    <div class="progress-step" id="ps3"></div>
+    <div class="progress-step" id="ps4"></div>
+    <div class="progress-step" id="ps5"></div>
+  </div>
+  <div class="progress-label">Step <span id="step-num">1</span> of 5</div>
+</div>
+
+<div class="form-wrap">
+
+<form id="intake-form" action="https://formspree.io/f/xbdekkqo" method="POST">
+
+<!-- STEP 1: BASICS -->
+<div class="section active" id="step1">
+  <div class="section-badge">Step 1 of 5</div>
+  <h2 class="section-title">Tell me about <em>you</em></h2>
+  <p class="section-sub">Let's start with the basics. What's your name and what business are we building a site for?</p>
+
+  <div class="field-group">
+    <label>Your Name *</label>
+    <input type="text" name="name" placeholder="e.g. Marcus Johnson" required>
+  </div>
+
+  <div class="field-group">
+    <label>Business Name *</label>
+    <input type="text" name="business" placeholder="e.g. East Side Auto" required>
+  </div>
+
+  <div class="field-group">
+    <label>Email Address *</label>
+    <input type="email" name="email" placeholder="you@email.com" required>
+  </div>
+
+  <div class="field-group">
+    <label>Phone Number (optional)</label>
+    <input type="tel" name="phone" placeholder="Your phone number">
+  </div>
+
+  <div class="btn-row">
+    <button type="button" class="btn-next" onclick="validateStep1()">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 2: BUSINESS INFO -->
+<div class="section" id="step2">
+  <div class="section-badge">Step 2 of 5</div>
+  <h2 class="section-title">Tell me about your <em>business</em></h2>
+  <p class="section-sub">What do you do? Who do you serve? Help me understand your business.</p>
+
+  <div class="field-group">
+    <label>Business Location *</label>
+    <input type="text" name="location" placeholder="e.g. Cleveland, OH" required>
+  </div>
+
+  <div class="field-group">
+    <label>Describe Your Business *</label>
+    <textarea name="description" placeholder="What does your business do? What problem do you solve? Who are your customers?" required></textarea>
+  </div>
+
+  <div class="field-group">
+    <label>Services / Products</label>
+    <textarea name="services" placeholder="List your main services or products"></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+    <button type="button" class="btn-next" onclick="goToStep(3)">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 3: DESIGN PREFERENCES -->
+<div class="section" id="step3">
+  <div class="section-badge">Step 3 of 5</div>
+  <h2 class="section-title">What's your <em>vibe?</em></h2>
+  <p class="section-sub">Help me understand the look and feel you want.</p>
+  <p class="field-note">Select all that apply</p>
+
+  <div class="field-group">
+    <label>Design Style *</label>
+    <div class="choice-grid">
+      <div class="choice-card">
+        <input type="checkbox" id="vibe-minimal" name="vibes" value="Minimal">
+        <label for="vibe-minimal" class="choice-label">
+          <span class="choice-icon">⚫</span>
+          <span class="choice-title">Minimal</span>
+          <span class="choice-desc">Clean, simple, less is more</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+      <div class="choice-card">
+        <input type="checkbox" id="vibe-bold" name="vibes" value="Bold">
+        <label for="vibe-bold" class="choice-label">
+          <span class="choice-icon">🔥</span>
+          <span class="choice-title">Bold</span>
+          <span class="choice-desc">Eye-catching, creative</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+      <div class="choice-card">
+        <input type="checkbox" id="vibe-corporate" name="vibes" value="Corporate">
+        <label for="vibe-corporate" class="choice-label">
+          <span class="choice-icon">💼</span>
+          <span class="choice-title">Corporate</span>
+          <span class="choice-desc">Professional, trustworthy</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+      <div class="choice-card">
+        <input type="checkbox" id="vibe-playful" name="vibes" value="Playful">
+        <label for="vibe-playful" class="choice-label">
+          <span class="choice-icon">🎨</span>
+          <span class="choice-title">Playful</span>
+          <span class="choice-desc">Fun, friendly, approachable</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label>Brand Colors (if you have them)</label>
+    <input type="text" name="colors" placeholder="e.g. Navy blue and gold">
+  </div>
+
+  <div class="btn-row">
+    <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
+    <button type="button" class="btn-next" onclick="goToStep(4)">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 4: PACKAGE SELECTION -->
+<div class="section" id="step4">
+  <div class="section-badge">Step 4 of 5</div>
+  <h2 class="section-title">What's your <em>package?</em></h2>
+  <p class="section-sub">Choose the option that's right for your business.</p>
+
+  <div class="field-group">
+    <label>Package *</label>
+    <div class="choice-grid single">
+      <div class="choice-card">
+        <input type="radio" id="pkg-starter" name="package" value="Starter Website ($99)" required>
+        <label for="pkg-starter" class="choice-label">
+          <span class="choice-icon">🚀</span>
+          <span class="choice-title">Starter Website</span>
+          <span class="choice-price">$99</span>
+          <span class="choice-desc">Perfect for getting online fast. Single-page site with contact form.</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+    </div>
+
+    <div class="choice-grid single">
+      <div class="choice-card">
+        <input type="radio" id="pkg-standard" name="package" value="Standard Website ($149)" checked>
+        <label for="pkg-standard" class="choice-label">
+          <span class="choice-icon">⭐</span>
+          <span class="choice-title">Standard Website (MOST POPULAR)</span>
+          <span class="choice-price">$149</span>
+          <span class="choice-desc">The complete package. Custom design, SEO setup, contact form, email integration.</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+    </div>
+
+    <div class="choice-grid single">
+      <div class="choice-card">
+        <input type="radio" id="pkg-logo" name="package" value="Website + Logo ($199)">
+        <label for="pkg-logo" class="choice-label">
+          <span class="choice-icon">✨</span>
+          <span class="choice-title">Website + Professional Logo</span>
+          <span class="choice-price">$199</span>
+          <span class="choice-desc">Website + custom logo design. Complete brand identity system.</span>
+        </label>
+        <div class="check-mark">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>What's included in every package:</strong><br>
+    ✓ Custom design (not a template)<br>
+    ✓ Mobile responsive<br>
+    ✓ Contact form<br>
+    ✓ 1 month free hosting<br>
+    ✓ Unlimited revisions<br>
+    ✓ 48–72 hour delivery
+  </div>
+
+  <div class="field-group">
+    <label>Anything else I should know?</label>
+    <textarea name="notes" placeholder="Any special requests or important details?"></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button type="button" class="btn-back" onclick="goToStep(3)">← Back</button>
+    <button type="button" class="btn-next" onclick="goToStep(5)">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 5: REVIEW & SUBMIT -->
+<div class="section" id="step5">
+  <div class="section-badge">Step 5 of 5</div>
+  <h2 class="section-title">Review & <em>submit</em></h2>
+  <p class="section-sub">One last thing. Please review our terms and submit your intake.</p>
+
+  <div class="info-box">
+    <strong>Next steps after you submit:</strong><br>
+    1. I'll review your intake form<br>
+    2. I'll send you a payment request for the deposit<br>
+    3. Once you pay, I'll start building<br>
+    4. You'll see your preview within 48–72 hours<br>
+    5. We fine-tune and your site goes live!
+  </div>
+
+  <div class="checkbox-group">
+    <input type="checkbox" id="terms-agree" name="terms_agreed" required>
+    <label for="terms-agree">I agree to the <a href="https://adhwaydesign.com/terms" target="_blank" style="color:#C8F500;text-decoration:underline">Terms & Conditions</a> and understand the cancellation and revision policies.</label>
+  </div>
+
+  <div class="btn-row">
+    <button type="button" class="btn-back" onclick="goToStep(4)">← Back</button>
+    <button type="submit" class="btn-submit">Submit & let's build! 🎉</button>
+  </div>
+</div>
+
+<!-- Hidden field for AI prompt -->
+<input type="hidden" name="ai_prompt" id="ai_prompt">
+
+</form>
+
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="success" id="success">
+  <div class="success-icon">🎉</div>
+  <h2>You're all set,<br><em>let's get building!</em></h2>
+  <p>I've received everything I need. You'll hear from me within a few hours with next steps and a payment request.</p>
+  <div class="success-box">
+    <p><strong>What happens next:</strong><br>
+    1. I'll review your intake form<br>
+    2. I'll send you a payment request for the deposit<br>
+    3. Once you pay, I start building right away<br>
+    4. Your site preview will be ready within 48–72 hours<br>
+    5. We fine-tune and your site goes live! 🚀</p>
+  </div>
+  <div style="margin-top:32px">
+    <a href="https://adhwaydesign.com" style="display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--charcoal);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;padding:14px 28px;border-radius:100px;text-decoration:none;transition:all 0.2s">← Back to main site</a>
+  </div>
+</div>
+
+<script>
+let currentStep = 1;
+
+function goToStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step' + n).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validateStep1() {
+  const name = document.getElementById('step1').querySelector('input[name="name"]').value.trim();
+  const biz = document.getElementById('step1').querySelector('input[name="business"]').value.trim();
+  const email = document.getElementById('step1').querySelector('input[name="email"]').value.trim();
+  
+  if (!name || !biz || !email) {
+    alert('Please fill in your name, business name, and email to continue.');
+    return;
+  }
+  goToStep(2);
+}
+
+function updateProgress() {
+  document.getElementById('step-num').textContent = currentStep;
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('ps' + i);
+    el.classList.remove('done', 'active');
+    if (i < currentStep) el.classList.add('done');
+    else if (i === currentStep) el.classList.add('active');
+  }
+}
+
+// GENERATE AI PROMPT BEFORE FORM SUBMISSION
+document.getElementById('intake-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Gather all form data
+  const formData = new FormData(this);
+  const name = formData.get('name');
+  const biz = formData.get('business');
+  const email = formData.get('email');
+  const phone = formData.get('phone');
+  const location = formData.get('location');
+  const desc = formData.get('description');
+  const services = formData.get('services');
+  const vibes = [...document.querySelectorAll('input[name="vibes"]:checked')].map(i => i.value).join(', ');
+  const colors = formData.get('colors');
+  const pkg = formData.get('package');
+  const notes = formData.get('notes');
+
+  // BUILD AI PROMPT
+  const aiPrompt = `BUILD A CUSTOM WEBSITE
+
+Business Information:
+- Business Name: ${biz}
+- Owner/Contact: ${name}
+- Email: ${email}
+- Phone: ${phone || 'Not provided'}
+- Location: ${location}
+
+About the Business:
+${desc}
+
+Services/Products:
+${services || 'Not specified'}
+
+Design Preferences:
+- Style: ${vibes || 'Clean and professional'}
+- Brand Colors: ${colors || 'Choose appropriate colors for the industry'}
+
+Package: ${pkg}
+
+Additional Notes:
+${notes || 'None'}
+
+REQUIREMENTS:
+- Single-page, mobile-responsive website
+- HTML only (clean, fast, modern)
+- Contact form included
+- Professional and conversion-focused
+- Use A.D.H.D brand colors: Green #C8F500, Charcoal #1A1A1A, Coral #FF6B6B, Offwhite #F7F6F0
+- Use fonts: DM Sans (primary), Instrument Serif (italic accents)
+- Infer compelling, realistic content where details are missing
+- Make it look trustworthy and professional
+
+OUTPUT: Complete, production-ready HTML file ready to deploy immediately.`;
+
+  // Add prompt to hidden field
+  document.getElementById('ai_prompt').value = aiPrompt;
+  
+  // Log for console access if needed
+  console.log("AI PROMPT FOR WEBSITE GENERATION:\n\n" + aiPrompt);
+
+  // Submit the form to Formspree
+  this.submit();
+});
+</script>
+
+</body>
+</html>
